@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navLink {
+  @apply relative max-w-min mx-4 cursor-pointer hover:text-gray-800 transition-colors text-black font-bold md:font-normal md:text-gray-700 md:text-opacity-80 text-sm;
+}
