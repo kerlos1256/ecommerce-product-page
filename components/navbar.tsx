@@ -25,7 +25,6 @@ const Navbar: React.FC<props> = ({
   const [sidebar, setSidebar] = useState<boolean>(false);
   const [cart, setCart] = useState<boolean>(false);
   const Sidebar = (condition: boolean) => {
-    console.log("side");
     setSidebar(condition);
     Overlay(condition);
   };
@@ -36,10 +35,10 @@ const Navbar: React.FC<props> = ({
           onClick={() => Sidebar(true)}
           className="md:hidden px-4 cursor-pointer select-none"
         >
-          <Image src={ham} />
+          <Image alt="" src={ham} />
         </div>
         <div className="mr-6 font-bold text-2xl">
-          <Image src={logo} />
+          <Image alt="" src={logo} />
         </div>
         <div
           className={`${
@@ -50,7 +49,7 @@ const Navbar: React.FC<props> = ({
             onClick={() => Sidebar(false)}
             className={`${sidebar ? "" : "hidden"} p-4`}
           >
-            <Image src={close} />
+            <Image alt="" src={close} />
           </div>
           <ul
             className={`${
@@ -118,7 +117,11 @@ const Navbar: React.FC<props> = ({
                     >
                       <div className="flex">
                         <div className="h-12 w-12 rounded overflow-hidden mr-4">
-                          <Image layout="responsive" src={product.image} />
+                          <Image
+                            alt=""
+                            layout="responsive"
+                            src={product.image}
+                          />
                         </div>
                         <div className="">
                           <div className="text-darkGrayishBlue">
@@ -136,7 +139,7 @@ const Navbar: React.FC<props> = ({
                         onClick={() => deleteProduct(product)}
                         className="cursor-pointer h-3 w-3"
                       >
-                        <Image src={Del} />
+                        <Image alt="" src={Del} />
                       </div>
                     </div>
                   ))}
@@ -149,7 +152,7 @@ const Navbar: React.FC<props> = ({
           </div>
         </div>
         <div className="ml-4">
-          <Image width="40px" height="40px" src={img} />
+          <Image alt="" width="40px" height="40px" src={img} />
         </div>
       </div>
     </nav>

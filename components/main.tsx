@@ -38,7 +38,7 @@ const Main: React.FC<props> = ({ addProduct }) => {
               }}
               className="h-10 w-10 m-4 flex justify-center items-center bg-white rounded-full"
             >
-              <Image src={prev} />
+              <Image alt="" src={prev} />
             </div>
             <div
               onClick={() => {
@@ -49,11 +49,11 @@ const Main: React.FC<props> = ({ addProduct }) => {
               }}
               className="h-10 w-10 m-4 flex justify-center items-center bg-white rounded-full"
             >
-              <Image src={next} />
+              <Image alt="" src={next} />
             </div>
           </div>
           <div className="w-screen xs:w-96 md:w-80 xs:rounded-xl overflow-hidden ">
-            <Image layout="responsive" src={productImages[current]} />
+            <Image alt="" layout="responsive" src={productImages[current]} />
           </div>
           {/* thumbnails */}
           <div className="hidden pt-5 sm:flex justify-between">
@@ -66,6 +66,7 @@ const Main: React.FC<props> = ({ addProduct }) => {
                 } rounded-xl overflow-hidden`}
               >
                 <Image
+                  alt=""
                   className={`${current === index ? "opacity-50" : ""}`}
                   layout="responsive"
                   src={img}
@@ -82,8 +83,8 @@ const Main: React.FC<props> = ({ addProduct }) => {
           </h1>
           <p className="py-4">
             These low-profile sneakers are your perfect casual wear companion.
-            Featuring a durable rubber outer sole. they'll withstand everything
-            the weather can offer.
+            Featuring a durable rubber outer sole. they&apos;ll withstand
+            everything the weather can offer.
           </p>
           <div className="flex xs:flex-col  justify-between items-center xs:items-start">
             <div className="flex items-center">

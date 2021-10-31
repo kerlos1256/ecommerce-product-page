@@ -71,9 +71,7 @@ const Home: NextPage = () => {
       return setProducts([...products, Product]);
     }
     productExists.quanity += Product.quanity;
-    console.log(orders);
     setOrders(orders + Product.quanity);
-    console.log(orders);
     productExists.totalPrice = productExists.price * productExists.quanity;
   };
   return (
