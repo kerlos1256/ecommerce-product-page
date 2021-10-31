@@ -10,8 +10,13 @@ import img3Thumb from "../images/image-product-3-thumbnail.jpg";
 import img4Thumb from "../images/image-product-4-thumbnail.jpg";
 import next from "../images/icon-next.svg";
 import prev from "../images/icon-previous.svg";
+import { Product } from "../pages";
 
-const Main: React.FC = () => {
+interface props {
+  addProduct: (Product: Product) => void;
+}
+
+const Main: React.FC<props> = ({ addProduct }) => {
   const productImages = [img1, img2, img3, img4];
   const productThumbnails = [img1Thumb, img2Thumb, img3Thumb, img4Thumb];
 
@@ -111,7 +116,18 @@ const Main: React.FC = () => {
                 +
               </div>
             </div>
-            <div className="select-none py-4 cursor-pointer shadow-purchesBtn bg-primary rounded-lg xs:w-60 lg:w-60 md:w-48 flex justify-center items-center text-white">
+            <div
+              onClick={() =>
+                addProduct({
+                  image: productThumbnails[current],
+                  name: "Fall Limited Edition Sneakers",
+                  price: 125,
+                  quanity: quanity,
+                  totalPrice: 125 * quanity,
+                })
+              }
+              className="select-none py-4 cursor-pointer shadow-purchesBtn bg-primary rounded-lg xs:w-60 lg:w-60 md:w-48 flex justify-center items-center text-white"
+            >
               <div className="pr-4">
                 <svg width="22" height="20" xmlns="http://www.w3.org/2000/svg">
                   <path

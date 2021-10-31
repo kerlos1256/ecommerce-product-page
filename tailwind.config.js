@@ -20,6 +20,9 @@ module.exports = {
         purchesBtn: "0 25px 50px -12px rgba(255, 125, 26, 0.25)",
         // "0 20px 25px -5px rgba(255, 125, 26,0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
       },
+      width: (theme) => ({
+        "23/24": "95.833333%",
+      }),
     },
   },
   variants: {

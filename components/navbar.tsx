@@ -3,13 +3,23 @@ import img from "../images/image-avatar.png";
 import ham from "../images/icon-menu.svg";
 import logo from "../images/logo.svg";
 import close from "../images/icon-close.svg";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { Product } from "../pages";
+import Del from "../images/icon-delete.svg";
 
 interface props {
-  Overlay: Function;
+  Overlay: Dispatch<SetStateAction<boolean>>;
+  products: Product[];
+  deleteProduct: (Product: Product) => Promise<void>;
+  orders: number;
 }
 
-const Navbar: React.FC<props> = ({ Overlay }) => {
+const Navbar: React.FC<props> = ({
+  Overlay,
+  products,
+  deleteProduct,
+  orders,
+}) => {
   const navlinks = ["Collections", "Men", "Women", "About", "Contact"];
   const [current, setCurrent] = useState<number>(0);
   const [sidebar, setSidebar] = useState<boolean>(false);
@@ -48,7 +58,11 @@ const Navbar: React.FC<props> = ({ Overlay }) => {
             } justify-evenly flex-col md:flex-row pt-2 gap-8 md:gap-0 md:pt-0 md:justify-start md:flex`}
           >
             {navlinks.map((link, index) => (
-              <li className="navLink" onClick={() => setCurrent(index)}>
+              <li
+                key={index}
+                className="navLink"
+                onClick={() => setCurrent(index)}
+              >
                 <a className="" href={`#${link}`}>
                   {link}
                 </a>
@@ -63,7 +77,13 @@ const Navbar: React.FC<props> = ({ Overlay }) => {
         </div>
       </div>
       <div className="flex h-full items-center justify-end">
-        <div className="mx-4 relative">
+        <div className="mx-4 xs:relative">
+          <div
+            onClick={() => setCart(!cart)}
+            className="select-none cursor-pointer absolute left-2 bottom-3 px-2 rounded-xl bg-primary text-xs text-white"
+          >
+            {orders}
+          </div>
           <svg
             className="cursor-pointer"
             onClick={() => setCart(!cart)}
@@ -81,14 +101,51 @@ const Navbar: React.FC<props> = ({ Overlay }) => {
           <div
             className={`${
               cart ? "" : "hidden"
-            } absolute bg-white drop-shadow-2xl rounded-lg w-80 py-4 mt-6 -translate-x-1/2`}
+            } absolute z-40 bg-white drop-shadow-2xl rounded-lg max-h-96 overflow-y-scroll w-23/24 left-1/2 xs:w-80 py-4 mt-10 -translate-x-1/2 xs:-translate-x-3/4`}
           >
-            <div className="font-bold p-4 border-opacity-60 border-b-2">
+            <div className="font-bold px-6 py-4 border-opacity-60 border-b-2">
               Cart
             </div>
-            <div className="flex justify-center items-center h-36">
-              your cart is empty
-            </div>
+            {products.length < 1 ? (
+              <div className="py-12 text-center">Your cart is empty.</div>
+            ) : (
+              <div className="flex flex-col justify-center items-center p-4">
+                <div className="w-full">
+                  {products.map((product, index) => (
+                    <div
+                      key={index}
+                      className="w-full  flex justify-between items-center mb-4"
+                    >
+                      <div className="flex">
+                        <div className="h-12 w-12 rounded overflow-hidden mr-4">
+                          <Image layout="responsive" src={product.image} />
+                        </div>
+                        <div className="">
+                          <div className="text-darkGrayishBlue">
+                            {product.name}
+                          </div>
+                          <div className="flex text-darkGrayishBlue">
+                            ${product.price}.00 x {product.quanity}
+                            <p className="ml-2 font-bold text-black">
+                              ${product.totalPrice}.00
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        onClick={() => deleteProduct(product)}
+                        className="cursor-pointer h-3 w-3"
+                      >
+                        <Image src={Del} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="cursor-pointer bg-primary text-white font-semibold w-full text-center rounded-xl py-3 drop-shadow-lg">
+                  Checkout
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className="ml-4">
