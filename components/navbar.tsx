@@ -3,9 +3,10 @@ import img from "../images/image-avatar.png";
 import ham from "../images/icon-menu.svg";
 import logo from "../images/logo.svg";
 import close from "../images/icon-close.svg";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Product } from "../pages";
 import Del from "../images/icon-delete.svg";
+import delay from "../utils/delay";
 
 interface props {
   Overlay: Dispatch<SetStateAction<boolean>>;
@@ -24,10 +25,12 @@ const Navbar: React.FC<props> = ({
   const [current, setCurrent] = useState<number>(0);
   const [sidebar, setSidebar] = useState<boolean>(false);
   const [cart, setCart] = useState<boolean>(false);
+
   const Sidebar = (condition: boolean) => {
     setSidebar(condition);
     Overlay(condition);
   };
+
   return (
     <nav className="flex justify-between p-4 border-b-2 border-gray-200">
       <div className="flex items-center">
@@ -79,7 +82,7 @@ const Navbar: React.FC<props> = ({
         <div className="mx-4 xs:relative">
           <div
             onClick={() => setCart(!cart)}
-            className="select-none cursor-pointer absolute left-2 bottom-3 px-2 rounded-xl bg-primary text-xs text-white"
+            className="pointer-events-none absolute left-2 bottom-3 px-2 rounded-xl bg-primary text-xs text-white"
           >
             {orders}
           </div>
@@ -99,8 +102,9 @@ const Navbar: React.FC<props> = ({
           {/* popup */}
           <div
             className={`${
-              cart ? "" : "hidden"
-            } absolute z-40 bg-white drop-shadow-2xl rounded-lg max-h-96 overflow-y-scroll w-23/24 left-1/2 xs:w-80 py-4 mt-10 -translate-x-1/2 xs:-translate-x-3/4`}
+              cart ? "opacity-100 mt-10" : `pointer-events-none opacity-0 mt-5`
+            } absolute z-40 bg-white drop-shadow-2xl rounded-lg max-h-96 overflow-y-scroll w-23/24 left-1/2 xs:w-80 py-4
+             duration-300 transition-all -translate-x-1/2 xs:-translate-x-3/4`}
           >
             <div className="font-bold px-6 py-4 border-opacity-60 border-b-2">
               Cart
